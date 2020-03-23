@@ -11,7 +11,7 @@ terraform {
         region         = "us-east-2"
         bucket         = "salah-terraform-state"
         dynamodb_table = "salah-terraform-locks"
-        key            = "state/loadbalancer.tfstate"
+        key            = "state/name_of_state_file.tfstate"
         encrypt        = true
     }
 }
