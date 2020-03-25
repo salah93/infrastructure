@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-get_vars() {
-    source ${ENVRC:-.envrc}
-}
-
-get_vars
 cd blue_green
 terraform init
 ./deploy.sh
