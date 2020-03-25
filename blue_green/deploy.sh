@@ -20,7 +20,7 @@ printl() {
 fail() {
     printl 'FAIL - destroying new'
     terraform destroy -auto-approve
-    exit
+    exit 1
 }
 
 if terraform workspace select $NEW_RELEASE >/dev/null 2>&1
