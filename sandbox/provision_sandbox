@@ -15,7 +15,7 @@ IPS=`terraform output -json ips | jq -r '. | join(",")'`,
 
 cd $PLAYBOOK_DIR
 ansible-playbook \
-    --vault-password-file ./.ansible-secret \
+    --vault-password-file $ANSIBLE_SECRET_PATH \
     -u ${REMOTE_USER} \
     -i ${IPS} \
     sandbox-playbook.yml

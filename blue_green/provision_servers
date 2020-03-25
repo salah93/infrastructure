@@ -18,7 +18,7 @@ cd $PLAYBOOK_DIR
 sleep 5
 
 ansible-playbook \
-    --vault-password-file ./.ansible-secret \
+    --vault-password-file $ANSIBLE_SECRET_PATH \
     -u ${REMOTE_USER} \
     -e release=${NEW_RELEASE} \
     -e logserver=${LOGSERVER} \

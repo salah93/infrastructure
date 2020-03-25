@@ -31,7 +31,7 @@
         {
             "extra_arguments": [
                 "--skip-tags=user",
-                "--vault-password-file=../.ansible-secret"
+                "--vault-password-file={{user `ansible_secret_path`}}"
             ],
             "groups": [
                 "{{user `service`}}"
@@ -45,6 +45,7 @@
         "do_token": "{{env `DO_TOKEN`}}",
         "service": "sandbox",
         "snapshot_name": "{{user `service`}}-{{timestamp}}",
-        "playbook_dir": "{{env `PLAYBOOK_DIR`}}"
+        "playbook_dir": "{{env `PLAYBOOK_DIR`}}",
+        "ansible_secret_path": "{{env `ANSIBLE_SECRET_PATH`}}"
     }
 }
