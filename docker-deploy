@@ -1,7 +1,0 @@
-#!/bin/bash
-set -eu
-
-export ANSIBLE_SECRET_PATH=${ANSIBLE_SECRET_PATH:-$PLAYBOOK_DIR/.ansible-secret}
-cd blue_green
-terraform init
-./deploy.sh

@@ -17,4 +17,4 @@ RUN apk add curl
 RUN mkdir /builds /playbooks
 WORKDIR /builds
 ENV PLAYBOOK_DIR /playbooks
-CMD /builds/docker-deploy
+CMD /builds/docker.sh

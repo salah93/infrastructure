@@ -1,6 +1,9 @@
 #!/bin/bash
 set -u
 
+terraform init
+export ANSIBLE_SECRET_PATH=${ANSIBLE_SECRET_PATH:-$PLAYBOOK_DIR/.ansible-secret}
+
 export TF_VAR_do_token=$DO_TOKEN
 export TF_VAR_ssh_keys=$DO_SSH_KEYS
 
