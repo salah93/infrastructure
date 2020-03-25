@@ -14,9 +14,10 @@ RUN apk add openssl-dev
 RUN apk add ansible
 RUN apk add curl
 
-COPY . /app
+VOLUME /etc/infrastructure/builds /app
+VOLUME /etc/infrastructure/playbooks /playbooks
 
-ENV PLAYBOOK_DIR /app/
+ENV PLAYBOOK_DIR /playbooks
 
 WORKDIR /app
 CMD ./docker-deploy
