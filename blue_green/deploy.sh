@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-terraform init
+source $ENVRC_PATH
 export ANSIBLE_SECRET_PATH=${ANSIBLE_SECRET_PATH:-$PLAYBOOK_DIR/.ansible-secret}
 
 export TF_VAR_do_token=$DO_TOKEN
@@ -25,6 +25,7 @@ fail() {
     exit 1
 }
 
+terraform init
 if terraform workspace select $NEW_RELEASE >/dev/null 2>&1
 then
     export TF_VAR_color=blue
