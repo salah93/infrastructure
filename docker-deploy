@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+get_vars() {
+    source .envrc
+}
+
+get_vars
+cd blue_green
+terraform init
+./deploy.sh
