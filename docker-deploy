@@ -2,7 +2,7 @@
 set -e
 
 get_vars() {
-    source .envrc
+    source ${ENVRC:-.envrc}
 }
 
 get_vars
