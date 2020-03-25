@@ -4,7 +4,6 @@ set -u
 export TF_VAR_do_token=$DO_TOKEN
 export TF_VAR_ssh_keys=$DO_SSH_KEYS
 
-export TF_VAR_logserver=$LOGSERVER
 export TF_VAR_remote_user=$REMOTE_USER
 export TF_VAR_node_count=$NODES
 export TF_VAR_size=$SIZE
