@@ -17,7 +17,7 @@ printl Provisioning...
 cd $PLAYBOOK_DIR
 sleep 5
 
-ansible-playbook \
+ANSIBLE_SSH_RETRIES=3 ansible-playbook \
     --vault-password-file $ANSIBLE_SECRET_PATH \
     -u ${REMOTE_USER} \
     -e release=${NEW_RELEASE} \
