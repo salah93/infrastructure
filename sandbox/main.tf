@@ -20,7 +20,9 @@ resource "digitalocean_droplet" "sandbox" {
     tags               = [
         "sandbox",
         "logging",
-        "jenkins"
+        "jenkins",
+        "zookeeper",
+        "kafka",
     ]
 }
 
@@ -60,6 +62,12 @@ resource "digitalocean_firewall" "logging" {
 
     inbound_rule {
         protocol         = "tcp"
+        port_range       = "22"
+        source_tags = ["sandbox"]
+    }
+
+    inbound_rule {
+        protocol         = "tcp"
         port_range       = "514"
         source_tags      = ["website"]
     }
@@ -91,6 +99,12 @@ resource "digitalocean_firewall" "jenkins" {
 
     inbound_rule {
         protocol         = "tcp"
+        port_range       = "22"
+        source_tags = ["sandbox"]
+    }
+
+    inbound_rule {
+        protocol         = "tcp"
         port_range       = "80"
         source_addresses = ["0.0.0.0/0", "::/0"]
     }
@@ -99,6 +113,78 @@ resource "digitalocean_firewall" "jenkins" {
         protocol         = "tcp"
         port_range       = "443"
         source_addresses = ["0.0.0.0/0", "::/0"]
+    }
+
+    outbound_rule {
+        protocol              = "tcp"
+        port_range            = "1-65535"
+        destination_addresses = ["0.0.0.0/0", "::/0"]
+    }
+
+    outbound_rule {
+        protocol              = "udp"
+        port_range            = "1-65535"
+        destination_addresses = ["0.0.0.0/0", "::/0"]
+    }
+}
+
+resource "digitalocean_firewall" "kafka" {
+    depends_on = [digitalocean_droplet.sandbox]
+    name = "kafka"
+
+    tags = [
+        "kafka"
+    ]
+
+    inbound_rule {
+        protocol         = "tcp"
+        port_range       = "22"
+        source_tags = ["sandbox"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "9092"
+        source_tags           = ["website"]
+    }
+
+    outbound_rule {
+        protocol              = "tcp"
+        port_range            = "1-65535"
+        destination_addresses = ["0.0.0.0/0", "::/0"]
+    }
+
+    outbound_rule {
+        protocol              = "udp"
+        port_range            = "1-65535"
+        destination_addresses = ["0.0.0.0/0", "::/0"]
+    }
+}
+
+resource "digitalocean_firewall" "zookeeper" {
+    depends_on = [digitalocean_droplet.sandbox]
+    name = "zookeeper"
+
+    tags = [
+        "zookeeper"
+    ]
+
+    inbound_rule {
+        protocol         = "tcp"
+        port_range       = "22"
+        source_tags = ["sandbox"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "2181"
+        source_tags           = ["website"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "2181"
+        source_tags           = ["kafka"]
     }
 
     outbound_rule {
