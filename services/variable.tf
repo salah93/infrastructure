@@ -15,3 +15,7 @@ variable "ssh_keys" {
     description = "ssh key ids for digital ocean"
     type        = list
 }
+
+variable "access_ip" {
+    description = "access ip"
+}

@@ -39,6 +39,12 @@ resource "digitalocean_firewall" "services" {
         source_tags = ["sandbox"]
     }
 
+    inbound_rule {
+        protocol         = "tcp"
+        port_range       = "22"
+        source_addresses = [var.access_ip]
+    }
+
     outbound_rule {
         protocol              = "tcp"
         port_range            = "1-65535"
