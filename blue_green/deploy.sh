@@ -88,7 +88,3 @@ then
         terraform destroy -auto-approve
     fi
 fi
-
-
-printl Provisioning Services Machines
-./provision_services
