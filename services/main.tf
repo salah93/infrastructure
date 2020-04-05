@@ -76,3 +76,7 @@ resource "digitalocean_firewall" "websocket" {
 output "ips" {
     value = digitalocean_droplet.services[*].ipv4_address
 }
+
+output "private_ips" {
+    value = digitalocean_droplet.services[*].ipv4_address_private
+}
