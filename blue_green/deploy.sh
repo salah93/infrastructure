@@ -21,6 +21,7 @@ printl() {
 
 fail() {
     printl 'FAIL - destroying new'
+    sleep 120
     terraform destroy -auto-approve
     exit 1
 }
@@ -87,3 +88,7 @@ then
         terraform destroy -auto-approve
     fi
 fi
+
+
+printl Provisioning Services Machines
+./provision_services

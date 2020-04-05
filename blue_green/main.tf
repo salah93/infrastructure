@@ -12,6 +12,10 @@ data "digitalocean_droplet" "logserver" {
     tag = "logging"
 }
 
+data "digitalocean_droplet" "services" {
+    tag = "services"
+}
+
 resource "digitalocean_droplet" "website" {
     count              = var.node_count
     name               = format("website-%s-%.2d", var.release, count.index)
@@ -35,4 +39,12 @@ output "ips" {
 
 output "logserver" {
     value = data.digitalocean_droplet.logserver.ipv4_address
+}
+
+output "private_ips" {
+    value = digitalocean_droplet.website[*].ipv4_address_private
+}
+
+output "services" {
+    value = data.digitalocean_droplet.services.ipv4_address_private
 }

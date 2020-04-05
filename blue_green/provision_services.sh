@@ -8,19 +8,15 @@ printl() {
     echo ===================================================================
 }
 
-IPS=`terraform output -json private_ips | jq -r '. | join(",")'`,
-LOGSERVER=`terraform output logserver`
-echo $IPS
-echo $LOGSERVER
-
-printl Provisioning...
-cd $PLAYBOOK_DIR
+printl provisioning
 sleep 5
 
+IPS=`terraform output -json services | jq -r '. | join(",")'`,
+
+cd $PLAYBOOK_DIR
 ANSIBLE_SSH_RETRIES=3 ansible-playbook \
     --vault-password-file $ANSIBLE_SECRET_PATH \
     -u ${REMOTE_USER} \
     -e release=${NEW_RELEASE} \
-    -e logserver=${LOGSERVER} \
     -i ${IPS} \
-    ./web-playbook.yml
+    ./services-playbook.yml
