@@ -17,6 +17,6 @@ cd $PLAYBOOK_DIR
 ANSIBLE_SSH_RETRIES=3 ansible-playbook \
     --vault-password-file $ANSIBLE_SECRET_PATH \
     -u ${REMOTE_USER} \
-    -e release=websockets \
+    -e release=master \
     -i ${IPS} \
     services-playbook.yml
