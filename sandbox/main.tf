@@ -22,7 +22,7 @@ resource "digitalocean_droplet" "sandbox" {
         "logging",
         "jenkins",
         "zookeeper",
-        "kafka",
+        "Kafka",
     ]
 }
 
@@ -128,12 +128,12 @@ resource "digitalocean_firewall" "jenkins" {
     }
 }
 
-resource "digitalocean_firewall" "kafka" {
+resource "digitalocean_firewall" "Kafka" {
     depends_on = [digitalocean_droplet.sandbox]
-    name = "kafka"
+    name = "Kafka"
 
     tags = [
-        "kafka"
+        "Kafka"
     ]
 
     inbound_rule {
@@ -146,6 +146,18 @@ resource "digitalocean_firewall" "kafka" {
         protocol              = "tcp"
         port_range            = "9092"
         source_tags           = ["website"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "9092"
+        source_tags           = ["consumer"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "9092"
+        source_tags           = ["Kafka"]
     }
 
     outbound_rule {
@@ -184,7 +196,13 @@ resource "digitalocean_firewall" "zookeeper" {
     inbound_rule {
         protocol              = "tcp"
         port_range            = "2181"
-        source_tags           = ["kafka"]
+        source_tags           = ["consumer"]
+    }
+
+    inbound_rule {
+        protocol              = "tcp"
+        port_range            = "2181"
+        source_tags           = ["Kafka"]
     }
 
     outbound_rule {

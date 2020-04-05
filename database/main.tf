@@ -11,6 +11,10 @@ resource "digitalocean_database_firewall" "site-fw" {
     }
     rule {
         type  = "tag"
+        value = "services"
+    }
+    rule {
+        type  = "tag"
         value = "sandbox"
     }
 }
